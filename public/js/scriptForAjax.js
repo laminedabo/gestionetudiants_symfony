@@ -14,18 +14,21 @@ var url = "http://127.0.0.1:8000"; // Partie intacte/fixe de l'URL
     -------------------------------------------------------*/
 
 	function listeEtudiant(){
+        $('#ajax-load').addClass("d-block");
+        const data={
+            "offset":offset,
+        }
 		$.ajax({
 			method: "POST",
             url: url+"/etudiant/listeAjax",
-			data: {}, 
+			data:data, 
 			dataType: "JSON",
 		})
 		.done(data =>{
             addLine(data.etd);
-            // alert(data[0]);
             console.log(data.etd);
             // console.log(data.etu);
-
+            $('#ajax-load').removeClass("d-block");
         })
     }
     
@@ -36,7 +39,7 @@ var url = "http://127.0.0.1:8000"; // Partie intacte/fixe de l'URL
 	-----------------------------------*/ 
 	function addLine(values){
         // console.log(values);
-        $("#tAjax").empty();
+        // $("#tAjax").empty();
         let line;
 		for (let i = 0; i < values.length; i++){
             let date = values[i].date_naiss.date.split(" ")[0].split('-').reverse().join("/");
@@ -54,7 +57,24 @@ var url = "http://127.0.0.1:8000"; // Partie intacte/fixe de l'URL
 		}
     }
 
-
+     var offset = 0;
+    /*--------------------------------------------
+        Scroll
+    ----------------------------------------------*/
+    const scrollZone = $('.tableDiv')
+    scrollZone.scroll(function(){
+        // alert('scrolling');
+        //console.log(scrollZone[0].clientHeight)
+        const st = scrollZone[0].scrollTop;
+        const sh = scrollZone[0].scrollHeight;
+        const ch = scrollZone[0].clientHeight;
+    
+        //console.log(st,sh, ch);
+        if(sh-st <= ch){
+            offset+=5;
+            listeEtudiant();
+        }        
+    })
 
     /*---------------------------------------------
     =========Click sur le bouton supprimer ========
@@ -106,6 +126,7 @@ var url = "http://127.0.0.1:8000"; // Partie intacte/fixe de l'URL
                 dataType:"JSON",
                 success:function(data){
                     // alert(data.etd);
+                    $("#tAjax").empty();
                     addLine(data.etd);
                     $('#ajax-load').removeClass("d-block");
                 }

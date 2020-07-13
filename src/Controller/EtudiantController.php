@@ -141,9 +141,11 @@ class EtudiantController extends AbstractController
      */
     public function ajax_list(Request $request, SerializerInterface $serialiser)
     {
-        if ($request->isXMLHttpRequest()) {         
+        if ($request->isXMLHttpRequest()) {
+            $offsett = $request -> request -> get('offset');
+            // dd($offsett);
             $Etudiant=new Etudiant();
-            $Etudiant = $this -> getDoctrine() -> getRepository(Etudiant::class)->findAll();
+            $Etudiant = $this -> getDoctrine() -> getRepository(Etudiant::class)->findBy([], [], $limit = 5, $offset = $offsett);
             // $p = $Etudiant[0];
             $etd = [];
             // $etu = $serialiser -> serialize($p, 'json');
