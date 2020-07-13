@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste etudiants{% endblock %}
+
+{% block body %}
+
+{% if app.user != null %}
+
+    <div class="mt-3" id="listeEtudiant">
+    <div id="ajax-load" class="container text-center d-none" style="position: absolute;top:50%; left:10%;"><img src="{{asset('js/ajax-loader.GIF')}}" alt="img"></div>
+
+            <div class="col-12">
+                    <select class="form-control col-12 col-md-4 mb-2 d-inline" name="etd_search" id="select_bourse">
+                        <option selected="" disabled value="">Afficher par</option>
+                        <option value="loge">Etudiants Boursiers logés</option>
+                        <option value="non_loge">Etudiants Boursiers non logés</option>
+                        <option value="non_boursier">Etudiants non Boursiers</option>
+                    </select>
+                    <label class="ml-3 border rouded" for="matri_search">Rechercher par Matricule :&nbsp</label>&nbsp<input type="text" id="matri_search">
+                    <div class="mesgRqet d-inline ml-1 text-white bg-primary rounded"  style="width:auto"></div>
+                    <h2 class="container bg-info rounded text-center pb-2">{{msg}}</h2>
+                    <div class="tableDiv" style="height:400px;overflow-y: scroll;scrollbar-width: thin;">
+                    <table class="table table-striped tEtd">                
+                        <thead>
+                            <tr class="text-center">
+                                <th>Matricule</th>
+                                <th>Noms</th>
+                                <th>Prenoms</th>
+                                <th>Date naiss</th>
+                                <th>Email</th>
+                                <th>Telephone</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                
+                        <tbody id="tAjax">
+                            {# La liste sera affichee ici #}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+{% endif %}
+{% if app.user == null %}
+<a href="{{ path('app_login') }}" class="btn btn-info">Connectez vous pour acceder a ce service.</a>
+{% endif %}
+
+{% endblock %}

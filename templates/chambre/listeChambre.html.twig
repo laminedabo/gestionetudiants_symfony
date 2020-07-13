@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste chambre{% endblock %}
+
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+{% if app.user != null %}
+
+
+{# <div class="container">
+    
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <input class="btn btn-primary" type="submit" value="Enregistrer"/>
+    {{ form_end(form) }}
+</div> #}
+
+{% endif %}
+{% if app.user == null %}
+<a href="{{ path('app_login') }}" class="btn btn-info">Connectez vous pour acceder a ce service.</a>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste etudiants{% endblock %}
+
+
+{% block body %}
+{% if app.user != null %}
+
+
+    <div class="mt-3" id="listeEtudiant">
+        <div class="col-12">
+                <select onchange="location = this.value;" class="form-control col-12 col-md-4 mb-2 d-inline" name="etd_search" id="select_bourse">
+                    <option selected="" disabled value="">Afficher par</option>
+                    <option value="boursier"><a href="">Etudiants Boursiers</a></option>
+                    <option value="loge">Etudiants logés</option>
+                    <option value="nonBoursier">Etudiants non Boursiers</option>
+                </select>
+                <label class="ml-3 border rouded" for="matr_search">Recherche Manuelle:&nbsp</label>&nbsp<input type="text" id="matr_search">
+                <div class="mesgRqet d-inline ml-1 text-white bg-primary rounded"  style="width:auto"></div>
+                                <h2 class="container bg-info rounded text-center  pb-2">{{msg}}</h2>
+            <div class="tableDiv" style="height:300px;overflow-y: scroll;scrollbar-width: thin;">
+                <table class="table tEtd table-striped">
+                    <thead style="position:static">
+                        <tr class="">
+                            <th>Matricule</th>
+                            <th>Noms</th>
+                            <th>Prenoms</th>
+                            <th class="">Date naiss</th>
+                            <th class="">Email</th>
+                            <th class="">Telephone</th>
+                            <th class="">Chambre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        {% for etu in etudiants %}
+                            <tr>
+                                <td>{{ etu.etudiant.matricule|e }}</td>
+                                <td>{{ etu.etudiant.prenom|e }}</td>
+                                <td>{{ etu.etudiant.nom|e }}</td>
+                                <td>{{ etu.etudiant.DateNaiss|date("m/d/Y")|e }}</td>
+                                <td>{{ etu.etudiant.email|e }}</td>
+                                <td>{{ etu.etudiant.telephone|e }}</td>
+                                <td>{{ etu.Chambre.id|e}} - {{ etu.Chambre.type|e }} - Batiment {{ etu.Chambre.NumBat.NumBat|e }}</td>
+                                <td><button id="{{etu.id}}" style="background-color:;" class="fa fa-trash-o suppr" aria-hidden="true"></button></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+         </div>
+</div>
+{% endif %}
+{% if app.user == null %}
+<a href="{{ path('app_login') }}" class="btn btn-info">Connectez vous pour acceder a ce service.</a>
+{% endif %}
+{% endblock %}

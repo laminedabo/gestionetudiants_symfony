@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}inscription etudiant{% endblock %}
+
+{# {% form_theme form 'bootstrap_4_layout.html.twig' %} #}
+
+{% block body %}
+
+    {{dump(etudiant)}}
+    {{dump(typeEtd)}}
+
+
+{# <div class="container">
+    
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <input class="btn btn-primary" type="submit" value="Enregistrer"/>
+    {{ form_end(form) }}
+</div> #}
+{% endblock %}

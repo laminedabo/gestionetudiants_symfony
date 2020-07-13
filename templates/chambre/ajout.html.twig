@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ajout chambre{% endblock %}
+
+
+{% form_theme form_chambre 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+{# 
+    {{dump(etudiant)}}
+    {{dump(boursier)}} #}
+    {% if app.user != null %}
+
+
+
+<div class="container mt-5">
+        <h2 class="container bg-info rounded text-center pb-2 mb-3">{{msg}}</h2>
+    
+    {{ form_start(form_chambre) }}
+    <div class="mb-4">
+        <label for="">Cette chambre se trouve dans le batiment:</label>
+        {{ form_widget(form_chambre.num_bat) }}
+    </div>
+    
+
+    <div>
+        <label for="">Cette chambre est de type:</label>
+        <select class="form-control mb-1" name="typeChbre" id="typeChbre">
+            <option value="" selected disabled>Choisir le type de chambre</option>
+            <option value="collectif">Collectif</option>
+            <option value="individuel">Individuel</option>
+        </select>
+        <small id="msgTypeErr" class="bg-info text-white rounded"></small>
+    </div>
+
+    <button id="reset" class="btn btn-danger mt-3" type="button">Annuler</button>
+    <input id="addChbr" class="btn btn-info mt-3" style="float:right" type="submit" value="Enregistrer"/>
+
+        {{ form_end(form_chambre) }}
+</div>
+{% endif %}
+{% if app.user == null %}
+<a href="{{ path('app_login') }}" class="btn btn-info">Connectez vous pour acceder a ce service.</a>
+{% endif %}
+{# {{dump(chambre)}} #}
+{% endblock %}
